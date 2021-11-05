@@ -24,7 +24,7 @@ namespace VSApp.Infrastructure.Repositories
 
         public async Task<User> GetUser(string username, string password)
         {
-            return  GetAllByExp(s => s.UserName == username && s.Password == password).FirstOrDefault();
+            return await GetAsync(s => s.UserName == username && s.Password == password);
         }
     }
 }
