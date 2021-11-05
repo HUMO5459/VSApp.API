@@ -27,7 +27,8 @@ namespace VSApp.Business.Helpers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("Id", userModel.Id.ToString())
+                    new Claim("Id", userModel.Id.ToString(),
+                              "Role", userModel.Role.ToString())
                 }),
                 //Claims = new Dictionary<string, object>() {
                 //    { "Permissions", userModel.Role.Permissions.Select(e => EncryptionHelper.AES.EncryptData(e)) }
