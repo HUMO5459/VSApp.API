@@ -8,7 +8,7 @@ using VSApp.Business.Models;
 
 namespace VSApp.Business.Interfaces
 {
-    public interface IDevicesIPService :IBaseService<DevicesIPModel>
+    public interface IServerService :IBaseService<ServerModel>
     {
 
     }

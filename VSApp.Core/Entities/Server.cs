@@ -8,11 +8,12 @@ using VSApp.Core.Entities.Base;
 
 namespace VSApp.Core.Entities
 {
-    public class Entering : EntityA
+    public class Server : Entity
     {
-        public DateTime EnteringTime { get; set; }
-        public int? ClientId { get; set; }
-        [NotMapped]
-        public Client Client { get; set; }
+        public string ServerIP { get; set; }
+        public string ServerPort { get; set; }
+        public string ServerLogin { get; set; }
+        public string ServerPassword { get; set; }
+
     }
 }

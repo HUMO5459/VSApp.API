@@ -18,8 +18,9 @@ namespace VSApp.Infrastructure.Data
         public DbSet<User> Users { get; private set; }
         public DbSet<Client> Clients { get; private set; }
         public DbSet<Entering> Enterings { get; private set; }
-        public DbSet<Exiting> Exiting { get; private set; }
-        public DbSet<DevicesIP> DevicesIPs { get; private set; }
+        public DbSet<Exiting> Exitings { get; private set; }
+        public DbSet<Server> Servers { get; private set; }
+        public DbSet<Camera> Cameras { get; private set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

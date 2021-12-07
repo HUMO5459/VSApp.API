@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VSApp.Business.Models;
+using VSApp.Business.Models.CameraModels;
 using VSApp.Core.Entities;
 
 namespace VSApp.Business.Mappers
@@ -17,7 +18,8 @@ namespace VSApp.Business.Mappers
             CreateMap<Client, ClientModel>().ReverseMap();
             CreateMap<Entering, EnteringModel>().ReverseMap();
             CreateMap<Exiting, ExitingModel>().ReverseMap();
-            CreateMap<DevicesIP, DevicesIPModel>().ReverseMap();
+            CreateMap<Server, ServerModel>().ReverseMap();
+            CreateMap<Camera, CameraModel>().ReverseMap();
         }
     }
 

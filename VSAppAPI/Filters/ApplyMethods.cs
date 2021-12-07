@@ -39,7 +39,7 @@ namespace VSApp.API.Filters
 
     public class ControllerVisibility : IActionModelConvention
     {
-        private readonly string[] VisibleControllers = { "Clients", "Users", "Enterings", "Exitings", "DevicesIPs" };
+        private readonly string[] VisibleControllers = { "Clients", "Cameras" , "Users", "Enterings", "Exitings", "Servers" };
         public void Apply(ActionModel action)
         {
             action.ApiExplorer.IsVisible = VisibleControllers.Contains(action.Controller.ControllerName);
@@ -48,7 +48,7 @@ namespace VSApp.API.Filters
 
     public class RemoveSchemas : ISchemaFilter
     {
-        private readonly string[] VisibleSchemas = { "ClientModel", "UserModel", "EnteringModel", "ExitingModel", "DevicesIPModel" };
+        private readonly string[] VisibleSchemas = { "ClientModel", "UserModel", "EnteringModel", "ExitingModel", "ServerModel" };
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
             foreach (var key in context.SchemaRepository.Schemas.Keys)

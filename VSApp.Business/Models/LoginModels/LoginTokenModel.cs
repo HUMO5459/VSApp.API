@@ -17,7 +17,5 @@ namespace VSApp.Business.Models
         [DataType(DataType.Date)]
         [JsonConverter(typeof(YearMonthDateHourMinuteSecond))]
         public DateTime Expiration { get; set; }
-
-        public bool IsActive { get; set; }
     }
 }

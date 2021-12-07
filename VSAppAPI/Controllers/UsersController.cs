@@ -35,7 +35,7 @@ namespace VSApp.API.Controllers
                 {
                     return Ok(new ResponseModel(ResponseStatusCode.BadRequest, "Invalid username or password"));
                 }
-                return Ok(new ResponseModel(user));
+                return Ok(user);
             }
             catch (Exception ex)
             {

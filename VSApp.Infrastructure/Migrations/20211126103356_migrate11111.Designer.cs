@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VSApp.Infrastructure.Data;
@@ -9,9 +10,10 @@ using VSApp.Infrastructure.Data;
 namespace VSApp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20211126103356_migrate11111")]
+    partial class migrate11111
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +82,7 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -170,8 +172,11 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("ServerIP")
-                        .HasColumnType("text");
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ServerIP")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ServerLogin")
                         .HasColumnType("text");
@@ -179,13 +184,25 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<string>("ServerPassword")
                         .HasColumnType("text");
 
-                    b.Property<string>("ServerPort")
-                        .HasColumnType("text");
+                    b.Property<int>("ServerPort")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("UpdatedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Servers");
                 });
@@ -225,7 +242,7 @@ namespace VSApp.Infrastructure.Migrations
 
             modelBuilder.Entity("VSApp.Core.Entities.Entering", b =>
                 {
-                    b.HasOne("VSApp.Core.Entities.Client", null)
+                    b.HasOne("VSApp.Core.Entities.Client", "Client")
                         .WithMany("Enterings")
                         .HasForeignKey("ClientId");
 
@@ -241,6 +258,8 @@ namespace VSApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
                     b.Navigation("CreatedUser");
 
                     b.Navigation("UpdatedUser");
@@ -248,7 +267,7 @@ namespace VSApp.Infrastructure.Migrations
 
             modelBuilder.Entity("VSApp.Core.Entities.Exiting", b =>
                 {
-                    b.HasOne("VSApp.Core.Entities.Client", null)
+                    b.HasOne("VSApp.Core.Entities.Client", "Client")
                         .WithMany("Exitings")
                         .HasForeignKey("ClientId");
 
@@ -264,9 +283,36 @@ namespace VSApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
                     b.Navigation("CreatedUser");
 
                     b.Navigation("UpdatedUser");
+                });
+
+            modelBuilder.Entity("VSApp.Core.Entities.Server", b =>
+                {
+                    b.HasOne("VSApp.Core.Entities.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VSApp.Core.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VSApp.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VSApp.Core.Entities.Client", b =>

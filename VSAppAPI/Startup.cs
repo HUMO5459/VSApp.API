@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Text;
 using VSApp.API.Filters;
 using VSApp.Business.Interfaces;
+using VSApp.Business.Interfaces.Base;
 using VSApp.Business.Mappers;
 using VSApp.Business.Repositories;
 using VSApp.Business.Repositories.Base;
@@ -198,7 +199,8 @@ namespace VSAppAPI
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IEnteringService, EnteringService>();
             services.AddScoped<IExitingService, ExitingService>();
-            services.AddScoped<IDevicesIPService, DevicesIPService>();
+            services.AddScoped<IServerService, ServerService>();
+            services.AddScoped<ICameraService, CameraService>();
 
             services.AddControllersWithViews();
             services.AddAutoMapper(typeof(IEMapper));

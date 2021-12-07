@@ -10,42 +10,42 @@ using VSApp.Core.Repositories.Base;
 
 namespace VSApp.Business.Services
 {
-    public class DevicesIPService : BaseServices<DevicesIP>, IDevicesIPService
+    public class ServerService : BaseServices<Server>, IServerService
     {
         private readonly IMapper _mapper;
 
-        public DevicesIPService(IRepository<DevicesIP> repository, IMapper mapper) : base (repository)
+        public ServerService(IRepository<Server> repository, IMapper mapper) : base (repository)
         {
             this._mapper = mapper;
         }
-        public async Task<DevicesIPModel> AddAsync(DevicesIPModel model)
+        public async Task<ServerModel> AddAsync(ServerModel model)
         {
-            var entity = _mapper.Map<DevicesIP>(model);
+            var entity = _mapper.Map<Server>(model);
             var newEntity = await _repository.AddAsync(entity);
-            var mapped = _mapper.Map<DevicesIPModel>(newEntity);
+            var mapped = _mapper.Map<ServerModel>(newEntity);
             return mapped;
         }
 
-        public async Task DeleteAsync(DevicesIPModel model)
+        public async Task DeleteAsync(ServerModel model)
         {
-            var entity = _mapper.Map<DevicesIP>(model);
+            var entity = _mapper.Map<Server>(model);
             await _repository.DeleteAsync(entity);
         }
 
-        public async Task<List<DevicesIPModel>> GetAllAsync()
+        public async Task<List<ServerModel>> GetAllAsync()
         {
-            List<DevicesIP> devicesIPs = await _repository.GetAll().ToListAsync();
-            List<DevicesIPModel> devicesIPModels = _mapper.Map<List<DevicesIPModel>>(devicesIPs);
+            List<Server> devicesIPs = await _repository.GetAll().ToListAsync();
+            List<ServerModel> devicesIPModels = _mapper.Map<List<ServerModel>>(devicesIPs);
             return devicesIPModels;
         }
 
-        public async Task<DevicesIPModel> GetByIdAsync(int id)
+        public async Task<ServerModel> GetByIdAsync(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            return _mapper.Map<DevicesIPModel>(entity);
+            return _mapper.Map<ServerModel>(entity);
         }
 
-        public async Task UpdateAsync(DevicesIPModel model)
+        public async Task UpdateAsync(ServerModel model)
         {
             var deviceIP = await _repository.GetByIdAsync(model.Id);
             var entity = _mapper.Map(model, deviceIP);

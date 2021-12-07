@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VSApp.Core.Entities.Base
 {
-    public class EntityA
+    public class EntityA : Entity
     {
         public int CreatedUserId { get; set; }
         private int _updateUserId { get; set; }
@@ -22,6 +22,7 @@ namespace VSApp.Core.Entities.Base
             }
         }
 
+        
         public User CreatedUser { get; set; }
         public User UpdatedUser { get; set; }
     }

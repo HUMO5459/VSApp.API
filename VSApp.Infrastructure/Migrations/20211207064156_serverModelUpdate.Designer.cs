@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VSApp.Infrastructure.Data;
@@ -9,9 +10,10 @@ using VSApp.Infrastructure.Data;
 namespace VSApp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20211207064156_serverModelUpdate")]
+    partial class serverModelUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

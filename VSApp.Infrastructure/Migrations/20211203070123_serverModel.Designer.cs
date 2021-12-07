@@ -10,8 +10,8 @@ using VSApp.Infrastructure.Data;
 namespace VSApp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20211103120211_migrate_2")]
-    partial class migrate_2
+    [Migration("20211203070123_serverModel")]
+    partial class serverModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,39 @@ namespace VSApp.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("VSApp.Core.Entities.Camera", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CamIP")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CamLogin")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CamPassword")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CamPort")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cameras");
+                });
 
             modelBuilder.Entity("VSApp.Core.Entities.Client", b =>
                 {
@@ -37,9 +70,6 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("CreatedUserId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
 
@@ -52,53 +82,12 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("UpdatedUserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("VSApp.Core.Entities.DevicesIP", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Cam_IP")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Cam_Login")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Cam_Password")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("MCP_IP")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("MCP_Login")
-                        .HasColumnType("text");
-
-                    b.Property<string>("MCP_Password")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("DevicesIPs");
                 });
 
             modelBuilder.Entity("VSApp.Core.Entities.Entering", b =>
@@ -108,11 +97,14 @@ namespace VSApp.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("EnteringTime")
                         .HasColumnType("timestamp without time zone");
@@ -120,9 +112,16 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("UpdatedUserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
 
                     b.ToTable("Enterings");
                 });
@@ -134,11 +133,14 @@ namespace VSApp.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("ExitingTime")
                         .HasColumnType("timestamp without time zone");
@@ -146,11 +148,61 @@ namespace VSApp.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("UpdatedUserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Exiting");
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.ToTable("Exitings");
+                });
+
+            modelBuilder.Entity("VSApp.Core.Entities.Server", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreatedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ServerIP")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ServerLogin")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ServerPassword")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ServerPort")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("UpdatedUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.ToTable("Servers");
                 });
 
             modelBuilder.Entity("VSApp.Core.Entities.User", b =>
@@ -186,37 +238,76 @@ namespace VSApp.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("VSApp.Core.Entities.DevicesIP", b =>
-                {
-                    b.HasOne("VSApp.Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("VSApp.Core.Entities.Entering", b =>
                 {
-                    b.HasOne("VSApp.Core.Entities.Client", "Client")
+                    b.HasOne("VSApp.Core.Entities.Client", null)
+                        .WithMany("Enterings")
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("VSApp.Core.Entities.User", "CreatedUser")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("CreatedUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.HasOne("VSApp.Core.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
                 });
 
             modelBuilder.Entity("VSApp.Core.Entities.Exiting", b =>
                 {
-                    b.HasOne("VSApp.Core.Entities.Client", "Client")
+                    b.HasOne("VSApp.Core.Entities.Client", null)
+                        .WithMany("Exitings")
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("VSApp.Core.Entities.User", "CreatedUser")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("CreatedUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.HasOne("VSApp.Core.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
+                });
+
+            modelBuilder.Entity("VSApp.Core.Entities.Server", b =>
+                {
+                    b.HasOne("VSApp.Core.Entities.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VSApp.Core.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
+                });
+
+            modelBuilder.Entity("VSApp.Core.Entities.Client", b =>
+                {
+                    b.Navigation("Enterings");
+
+                    b.Navigation("Exitings");
                 });
 #pragma warning restore 612, 618
         }

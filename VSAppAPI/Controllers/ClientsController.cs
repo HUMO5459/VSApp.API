@@ -77,7 +77,7 @@ namespace VSApp.API.Controllers
         public async Task<ActionResult<List<ClientModel>>> GetClients()
         {
             var clients = await _clientService.GetAllAsync();
-            return Ok(new ResponseModel(clients));
+            return Ok(clients);
         }
     }
 }
